@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Javascript</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<style>
+    .highlight {
+        color: red;
+        font-weight: bold;
+    }
+</style>
+
+<body>
+    <h1>Hi This is my First Javascript Code</h1>
+    <p id="paragraph">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+        when an unknown printer took a galley of type and scrambled it to make a type
+        specimen book. It has survived not only five centuries, but also the leap into
+        electronic typesetting, remaining essentially unchanged. It was popularised
+        in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+        and more recently with desktop publishing software like Aldus PageMaker
+        including versions of Lorem Ipsum.</p>
+    <div style="margin-bottom: 10px;">
+        <input type="text" id="inputtext">
+        <!-- <input type="text" id="inputtext" onkeyup="textColour()"> -->
+
+    </div>
+    <button type="button" onclick="document.getElementById('paragraph').style.color='red'">Click Here For Red!</button>
+    <button type="button" onclick="document.getElementById('paragraph').style.color='black'">Click Here For
+        Black!</button>
+    <h2>Now We Will Show The Date</h2>
+    <p id="date">Click the below button for showing current date and time</p>
+    <button type="button" onclick="document.getElementById('date').innerHTML = Date()">Click Here!</button>
+    <h2>Let's learn how to show hidden elements in Javascript</h2>
+    <p id="paragraph2" style="display: none;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+        when an unknown printer took a galley of type and scrambled it to make a type
+        specimen book. It has survived not only five centuries, but also the leap into
+        electronic typesetting, remaining essentially unchanged. It was popularised
+        in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+        and more recently with desktop publishing software like Aldus PageMaker
+        including versions of Lorem Ipsum.</p>
+    <button type="button" onclick="document.getElementById('paragraph2').style.display='block'">Show Hidden
+        Elements!</button>
+    <h2>Let's Try to Change the Contents of the Text</h2>
+    <p id="paragraph3">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+        when an unknown printer took a galley of type and scrambled it to make a type
+        specimen book. It has survived not only five centuries, but also the leap into
+        electronic typesetting, remaining essentially unchanged. It was popularised
+        in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+        and more recently with desktop publishing software like Aldus PageMaker
+        including versions of Lorem Ipsum.</p>
+    <button type="button" onclick="textChange()">Change Text</button>
+    <div style="margin-top: 10px;">
+        <label>Type your thoughts</label><br>
+        <div style="display: flex;">
+            <div>
+                <input id="inputBox" style="margin-top: 10px;" type="text" name="inputbox" value="">
+            </div>
+            <div id="preview" style="background-color: pink;margin-left: 20px;margin-top: 10px;"></div>
+        </div>
+    </div>
+    <div>
+        <p id="textParagraph">Hover over me to hide this text.</p>
+    </div>
+    <h2>Image Upload And Show</h2>
+    <div class="row" style="display: flex;">
+        <div>
+            <input type="file" name="image" id="image">
+        </div>
+        <div id="imageshowwww" style="height: 200px;width: 200px;">
+            <img src="" id="imageshow" style="height: 200px;width: 200px;">
+        </div>
+    </div>
+</body>
+<script>
+    function textChange() {
+        document.getElementById('paragraph3').innerHTML = "Hi I am Bhumi Sonkar.I have graduated from IAer.";
+    }
+    function textColour() {
+        let textvalue = $('#paragraph1').val()
+        //  console.log(textvalue);
+        if (textvalue) {
+            document.getElementById('paragraph').style.color = textvalue;
+        }
+    }
+    $(document).ready(function () {
+        $('#inputBox').keyup(function () {
+            var inputValue = $('#inputBox').val();
+            // var vowels = inputValue.match(/[aeiou]/gi);
+            // $('#preview').text(inputValue);
+            var highlightedText = inputValue.replace(/[aeiou]/gi, function (match) {
+                const randomColor = getRandomColor(match);
+                return `<span class="highlight" style="color: ${randomColor};">${match}</span>`;
+            });
+
+            function getRandomColor(vowel) {
+                var vowelColors = {
+                    'a': 'red',
+                    'e': 'blue',
+                    'i': 'brown',
+                    'o': 'orange',
+                    'u': 'green',
+                };
+                return vowelColors[vowel.toLowerCase()]; // Fallback to random color if not found
+            }
+            $('#preview').html(highlightedText);
+        });
+        $('#textParagraph').click(function () {
+            $(this).hide();
+            // Mouse enter
+            // function() { $(this).show(); }  // Mouse leave
+        });
+
+        $('#inputtext').keyup(function () {
+            let inputtext = $(this).val().toLowerCase();
+            let paragraph = $('#paragraph');
+            // console.log(inputtext);
+            // console.log(paragraph);
+            paragraph.css({
+                'font-weight': '',
+                'font-style': '',
+                'text-decoration': '',
+                'color': ''
+            });
+            switch (inputtext) {
+                case 'bold':
+                    paragraph.css('font-weight', 'bold');
+                    break;
+                case 'italic':
+                    paragraph.css('font-style', 'italic');
+                    break;
+                case 'underline':
+                    paragraph.css('text-decoration', 'underline');
+                    break;
+                case 'pink':
+                case 'black':
+                case 'blue':
+                case 'green':
+                    paragraph.css('color', inputtext);
+                    break;
+                default:
+                    // If no valid style is found, do nothing
+                    break;
+            }
+        })
+    
+        $('#image').change(function(){
+            
+            // var images = $('#image').val();
+            var image = this.files[0];
+            console.log(image);
+            
+            if(image){
+
+                var reader = new FileReader();
+                reader.onload = function (e){
+                document.getElementById('imageshow').src = e.target.result;
+                // $('#imageshow').attr("src",e.target.result);
+            }
+            reader.readAsDataURL(image);
+            }
+           
+           
+        });
+    });
+
+</script>
+
+
+</html>
